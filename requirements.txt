@@ -1,1 +1,2 @@
 ipykernel==6.21.0
+tensorflow==2.11.0
