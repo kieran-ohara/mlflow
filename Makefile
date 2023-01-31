@@ -1,2 +1,2 @@
 venv:
-	python3.11 -m venv $@
+	python3.9 -m venv $@
