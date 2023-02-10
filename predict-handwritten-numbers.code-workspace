@@ -9,7 +9,8 @@
   },
   "extensions": {
     "recommendations": [
-      "ms-python.python"
+      "ms-python.python",
+      "vscodevim.vim"
     ]
   }
 }
