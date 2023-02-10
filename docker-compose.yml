@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  predict:
+    build:
+      context: .
+      dockerfile: Dockerfile.serving
+    image: docker.io/kieranbamforth/predict-handwritten-numbers:latest
+    ports: 
+      - 8500:8500
+    platform: linux/amd64
+    networks:
+      - nw
+
+networks:
+  nw:
