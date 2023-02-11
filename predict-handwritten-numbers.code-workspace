@@ -1,9 +1,9 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
   "settings": {
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv"
   },
@@ -12,6 +12,28 @@
       "ms-azuretools.vscode-docker",
       "ms-python.python",
       "vscodevim.vim",
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Web App",
+        "type": "python",
+        "request": "launch",
+        "module": "flask",
+        "env": {
+          "FLASK_APP": "web/app.py",
+          "FLASK_DEBUG": "1"
+        },
+        "args": [
+          "run",
+          "--no-debugger",
+          "--no-reload"
+        ],
+        "jinja": true,
+        "justMyCode": true
+      }
     ]
   }
 }
