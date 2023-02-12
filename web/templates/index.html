@@ -16,9 +16,12 @@
 
 <body>
     <h1>Recognise my handwriting</h1>
+    {% if prediction is defined %}
+        <p>Prediction: {{ prediction }}</p>
+    {% endif %}
     <canvas id="canvas"></canvas>
     <button id="canvasToFile">File From Canvas</button>
-    <form method="post" action="/submit" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <input id="fileInput" type="file" name="file" />
         <input type="submit" />
     </form>
