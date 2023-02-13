@@ -21,7 +21,14 @@ def index():
     if (request.method == 'GET'):
         return render_template('index.html.j2')
     elif (request.method == 'POST'):
-        return render_template('index.html.j2', prediction=predict(request))
+        prediction = predict(request)
+        max = np.array2string(np.argmax(prediction))
+        sorted = np.argsort(prediction)
+        return render_template(
+            'index.html.j2',
+             max=max,
+             sorted=sorted
+        )
 
 def predict(request):
     filename = f'/home/vscode/src/predict-handwritten-numbers/web/uploads/${uuid.uuid4()}.png'
@@ -48,4 +55,5 @@ def predict(request):
     tensor_shape = tf.TensorShape(output.tensor_shape)
 
     reshaped_output = np.array(output.float_val).reshape(tensor_shape.as_list())
-    return np.array2string(reshaped_output)
+
+    return reshaped_output

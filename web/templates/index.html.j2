@@ -16,8 +16,16 @@
 
 <body>
     <h1>Recognise my handwriting</h1>
-    {% if prediction is defined %}
-        <p>Prediction: {{ prediction }}</p>
+    {% if max is defined %}
+        <p>Top prediction: {{ max }}</p>
+    {% endif %}
+    {% if sorted is defined %}
+        <p>Order of predictions:</p>
+        <ol>
+            {% for p in sorted %}
+            <li>{{ p }}</li>
+            {% endfor %}
+        </ol>
     {% endif %}
     <canvas id="canvas"></canvas>
     <form method="post" enctype="multipart/form-data" id="form">
