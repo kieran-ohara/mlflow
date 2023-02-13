@@ -20,25 +20,27 @@
         <p>Prediction: {{ prediction }}</p>
     {% endif %}
     <canvas id="canvas"></canvas>
-    <button id="canvasToFile">File From Canvas</button>
-    <form method="post" enctype="multipart/form-data">
-        <input id="fileInput" type="file" name="file" />
-        <input type="submit" />
+    <form method="post" enctype="multipart/form-data" id="form">
+        <input id="fileInput" type="file" name="file" hidden/>
+        <input type="submit" ></button>
     </form>
 
     <script src="/static/canvas.js" type="text/javascript"></script>
 
     <script type="text/javascript">
+        var form = document.querySelector('#form')
         var canvas = document.querySelector('#canvas')
         var fileInput = document.querySelector('#fileInput')
-        var canvasToFile = document.querySelector('#canvasToFile')
+        var submit = document.querySelector('#submit')
 
-        canvasToFile.addEventListener('click', () => {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
             canvas.toBlob((blob) => {
                 const file = new File([blob], "canvas.png");
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(file);
                 fileInput.files = dataTransfer.files;
+                event.target.submit();
             });
         })
     </script>
