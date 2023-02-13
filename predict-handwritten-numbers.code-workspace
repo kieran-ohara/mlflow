@@ -5,13 +5,14 @@
     }
   ],
   "settings": {
-    "python.defaultInterpreterPath": "${workspaceFolder}/.venv"
+    "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python"
   },
   "extensions": {
     "recommendations": [
       "ms-azuretools.vscode-docker",
       "ms-python.python",
       "vscodevim.vim",
+      "samuelcolvin.jinjahtml"
     ]
   },
   "launch": {

@@ -19,9 +19,9 @@ app = Flask(__name__)
 @app.route("/", methods=(["GET", "POST"]))
 def index():
     if (request.method == 'GET'):
-        return render_template('index.html')
+        return render_template('index.html.j2')
     elif (request.method == 'POST'):
-        return render_template('index.html', prediction=predict(request))
+        return render_template('index.html.j2', prediction=predict(request))
 
 def predict(request):
     filename = f'/home/vscode/src/predict-handwritten-numbers/web/uploads/${uuid.uuid4()}.png'
