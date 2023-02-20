@@ -75,7 +75,25 @@ spec:
     app: predict-handwritten-numbers
   type: ClusterIP
   ports:
-  - name: web
-    protocol: TCP
-    port: 80
-    targetPort: web
+    - name: web
+      protocol: TCP
+      port: 80
+      targetPort: web
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: predict-handwritten-numbers
+  namespace: apps
+spec:
+  gateways:
+    - platform/default-gateway
+  hosts:
+    - predict-handwritten-numbers.k8s.kieranbamforth.me
+  http:
+    - name: predict-handwritten-numbers
+      route:
+        - destination:
+            host: predict-handwritten-numbers.apps.svc.cluster.local
+            port:
+              number: 80
