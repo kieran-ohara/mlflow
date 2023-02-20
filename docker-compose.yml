@@ -19,6 +19,8 @@ services:
     image: docker.io/kieranbamforth/predict-handwritten-numbers-wsgi:latest
     ports:
       - 8000:8000
+    environment:
+      GRPC_HOST: predict
     platform: linux/amd64
     networks:
       - nw
