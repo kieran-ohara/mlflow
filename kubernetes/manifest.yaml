@@ -1,0 +1,81 @@
+---
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: predict-handwritten-numbers
+  namespace: apps
+  labels:
+    app: predict-handwritten-numbers
+spec:
+  selector:
+    matchLabels:
+      app: predict-handwritten-numbers
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: predict-handwritten-numbers
+    spec:
+      containers:
+        - name: predict
+          image: docker.io/kieranbamforth/predict-handwritten-numbers:latest
+          imagePullPolicy: IfNotPresent
+          # resources:
+          #   requests:
+          #     cpu: 100m
+          #     memory: 100Mi
+          #   limits:
+          #     cpu: 100m
+          #     memory: 100Mi
+          ports:
+            - containerPort: 8500
+              name: grpc
+        - name: wsgi
+          image: docker.io/kieranbamforth/predict-handwritten-numbers-wsgi:latest
+          imagePullPolicy: IfNotPresent
+          # resources:
+          #   requests:
+          #     cpu: 100m
+          #     memory: 100Mi
+          #   limits:
+          #     cpu: 100m
+          #     memory: 100Mi
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          # readinessProbe:
+          #   httpGet:
+          #     path: /_status/healthz
+          #     port: 80
+          #   initialDelaySeconds: 5
+          #   timeoutSeconds: 2
+          #   successThreshold: 1
+          #   failureThreshold: 3
+          #   periodSeconds: 10
+          env:
+            - name: GRPC_HOST
+              value: localhost
+          ports:
+            - containerPort: 8000
+              name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: predict-handwritten-numbers
+  namespace: apps
+spec:
+  selector:
+    app: predict-handwritten-numbers
+  type: ClusterIP
+  ports:
+  - name: web
+    protocol: TCP
+    port: 80
+    targetPort: web
