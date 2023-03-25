@@ -1,7 +1,7 @@
 # For Jupyter
 ipykernel==6.21.0
 matplotlib==3.6.3
-tensorflow==2.11.0
+tensorflow==2.11.1
 
 # For the web app
 Flask==2.2.2
